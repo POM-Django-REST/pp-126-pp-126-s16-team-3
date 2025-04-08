@@ -1,0 +1,86 @@
+/* Скрываем формы по умолчанию */
+.login-form,
+.registration-form {
+    display: none;
+}
+
+/* Скрываем радио-кнопки */
+input[name="auth-tab"] {
+    display: none;
+}
+
+/* Стили для меток переключения */
+label[for="login-tab"],
+label[for="registration-tab"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ccc;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+label[for="login-tab"]:hover,
+label[for="registration-tab"]:hover {
+    background: #bbb;
+}
+
+/* Активное состояние метки */
+#login-tab:checked + label[for="login-tab"],
+#registration-tab:checked + label[for="registration-tab"] {
+    background: #eee;
+    font-weight: bold;
+}
+
+/* Показываем форму логина, если выбран таб Login */
+#login-tab:checked ~ .tab-content .login-form {
+    display: block;
+}
+
+/* Показываем форму регистрации, если выбран таб Registration */
+#registration-tab:checked ~ .tab-content .registration-form {
+    display: block;
+}
+
+/* Остальные стили для контейнера и форм */
+.auth-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-container h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.tab-content form div {
+    margin-bottom: 10px;
+}
+
+.tab-content form input,
+.tab-content form select {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.tab-content form button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.tab-content form button:hover {
+    background-color: #555;
+}
+
+.errorlist {
+    color: red;
+}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/author.css' %}">
+
+    <h2>Add a new author</h2>
+    <form method="post" class="custom-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+        <div class="form-group">
+            {{ form.surname.label_tag }}
+            {{ form.surname }}
+            {{ form.surname.errors }}
+        </div>
+        <div class="form-group">
+            {{ form.patronymic.label_tag }}
+            {{ form.patronymic }}
+            {{ form.patronymic.errors }}
+        </div>
+        <button type="submit" class="btn">Add</button>
+    </form>
+
+    <h2>Authors table</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <a href="?sort=id&order={% if current_sort == 'id' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    ID
+                    {% if current_sort == 'id' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=name&order={% if current_sort == 'name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    First Name
+                    {% if current_sort == 'name' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=patronymic&order={% if current_sort == 'patronymic' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Patronymic
+                    {% if current_sort == 'patronymic' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=surname&order={% if current_sort == 'surname' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Surname
+                    {% if current_sort == 'surname' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>Utils</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for author in authors %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.patronymic }}</td>
+                <td>{{ author.surname }}</td>
+                <td>
+                    <a href="{% url 'author:single_author' author.id %}">🔎Details</a>
+                    &nbsp;|&nbsp;
+                    <a href="{% url 'author:delete_author' author.id %}"
+                       title="Delete author {{ author.name|slice:'0:1' }}. {{ author.patronymic|slice:'0:1' }}. {{ author.surname|slice:'0:1' }}">❌Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

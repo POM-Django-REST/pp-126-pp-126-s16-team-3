@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <h2>Orders — Index</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <a href="?sort=id&order={% if current_sort == 'id' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    ID
+                    {% if current_sort == 'id' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=user__last_name&order={% if current_sort == 'user__last_name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    User
+                    {% if current_sort == 'user__last_name' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=book__name&order={% if current_sort == 'book__name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Book
+                    {% if current_sort == 'book__name' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=created_at&order={% if current_sort == 'created_at' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Created At
+                    {% if current_sort == 'created_at' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=end_at&order={% if current_sort == 'end_at' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    End At
+                    {% if current_sort == 'end_at' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=plated_end_at&order={% if current_sort == 'plated_end_at' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Planned End At
+                    {% if current_sort == 'plated_end_at' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;
+                        {% else %}
+                            &#9660;
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>Utils</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.user.first_name }} {{ order.user.last_name }} ({{ order.user.email }})</td>
+                <td>{{ order.book.name }}</td>
+                <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if order.end_at %}
+                        {{ order.end_at|date:"Y-m-d H:i" }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ order.plated_end_at|date:"Y-m-d H:i" }}</td>
+                <td><a href="{% url 'order:single_order' order.id %}">Details</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

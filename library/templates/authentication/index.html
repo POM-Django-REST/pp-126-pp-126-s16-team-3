@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Authentication{% endblock %}
+
+{% block content %}
+    <!-- Connect auth.css -->
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+
+    <h2>Authentication</h2>
+    {% if messages %}  <!-- If a View file returns any messages (errors) -->
+        <ul class="error-message">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="auth-container">
+        <!-- Radio buttons for switching forms -->
+        <input type="radio" id="login-tab" name="auth-tab" {% if active_tab != 'registration' %}checked{% endif %}>
+        <label for="login-tab">Login</label>
+
+        <input type="radio" id="registration-tab" name="auth-tab" {% if active_tab == 'registration' %}checked{% endif %}>
+        <label for="registration-tab">Registration</label>
+
+        <div class="tab-content">
+            <!-- Login form -->
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ login_form.email.label_tag }}
+                    {{ login_form.email }}
+                    {{ login_form.email.errors }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password.label_tag }}
+                    {{ login_form.password }}
+                    {{ login_form.password.errors }}
+                </div>
+                <button type="submit" name="action" value="login">Login</button>
+            </form>
+
+            <!-- Registration form -->
+            <form method="post" class="registration-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ registration_form.email.label_tag }}
+                    {{ registration_form.email }}
+                    {{ registration_form.email.errors }}
+                </div>
+                <div class="form-group">
+                    {{ registration_form.password.label_tag }}
+                    {{ registration_form.password }}
+                    {{ registration_form.password.errors }}
+                </div>
+                <div class="form-group">
+                    {{ registration_form.first_name.label_tag }}
+                    {{ registration_form.first_name }}
+                    {{ registration_form.first_name.errors }}
+                </div>
+                <div class="form-group">
+                    {{ registration_form.middle_name.label_tag }}
+                    {{ registration_form.middle_name }}
+                    {{ registration_form.middle_name.errors }}
+                </div>
+                <div class="form-group">
+                    {{ registration_form.last_name.label_tag }}
+                    {{ registration_form.last_name }}
+                    {{ registration_form.last_name.errors }}
+                </div>
+                <div class="form-group">
+                    {{ registration_form.role.label_tag }}
+                    {{ registration_form.role }}
+                    {{ registration_form.role.errors }}
+                </div>
+
+                <button type="submit" name="action" value="registration">Registrate</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

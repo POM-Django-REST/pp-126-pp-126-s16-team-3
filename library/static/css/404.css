@@ -1,0 +1,26 @@
+img {
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.back-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button a:hover {
+    background-color: #357bd8;
+}

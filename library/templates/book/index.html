@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+    <h2>Book — Index</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                {# If current order is DESCEND, click should amke it ASCEND, and vise versa #}
+                <a href="?sort=id&order={% if current_sort == 'id' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    ID
+                    {% if current_sort == 'id' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;  {# symbol ↑ #}
+                        {% else %}
+                            &#9660;  {# symbol ↓ #}
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=name&order={% if current_sort == 'name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Name
+                    {% if current_sort == 'name' %}
+                        {% if current_order == 'asc' %}
+                            &#9650;  {# symbol ↑ #}
+                        {% else %}
+                            &#9660;  {# symbol ↓ #}
+                        {% endif %}
+                    {% endif %}
+                </a>
+            </th>
+            <th>Authors</th>
+            <th>Utils</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.name }}</td>
+                <td>
+                    {% for author in book.authors.all %}
+                        {{ author.name }} {{ author.patronymic }}
+                        {{ author.surname }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}
+                </td>
+                <td><a href="{% url 'book:single_book' book.id %}">Details</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

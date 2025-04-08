@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Author is not found{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+    <img src="{% static 'img/404.jpg' %}" alt="Error 404 — Author with ID {{ author_id }} is not found">
+        <div class="back-button">
+            <a href="{% url 'author:index' %}">← Back to Author list</a>
+        </div>
+{% endblock %}

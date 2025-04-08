@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/single_author.css' %}">
+    <div class="author-detail">
+        <h2>Author Detail</h2>
+        <div class="author-info">
+            <p><strong>ID:</strong> {{ author.id }}</p>
+            <p><strong>First Name:</strong> {{ author.name }}</p>
+            <p><strong>Patronymic:</strong> {{ author.patronymic }}</p>
+            <p><strong>Surname:</strong> {{ author.surname }}</p>
+            {# Если у автора есть дополнительные поля, добавьте их здесь #}
+        </div>
+        <div class="author-utils">
+            <a href="{% url 'author:index' %}" class="back-button">Back to Authors</a>
+        </div>
+    </div>
+{% endblock %}

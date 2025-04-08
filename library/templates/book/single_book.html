@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ book.name }}{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/single_book.css' %}">
+    <div class="book-detail">
+        <h2>{{ book.name }}</h2>
+        <ul>
+            <li><span class="label">Author(s):</span>
+                <p>
+                    {% for author in book.authors.all %}
+                        {{ author.name }} {{ author.patronymic }}
+                        {{ author.surname }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p></li>
+            <li><span class="label">Description:</span>
+                <p>{{ book.description }}</p></li>
+            <li><span class="label">Number of copies in Library:</span>
+                <p>{{ book.count }}</p></li>
+            <li><span class="label">ID in the Library:</span>
+                <p>{{ book.id }}</p></li>
+        </ul>
+        <div class="back-button">
+            <a href="{% url 'book:index' %}">← Back to book list</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Library{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul class="nav">
+            <li><a href="{% url 'main:index' %}">Library</a></li>
+            <li><a href="{% url 'book:index' %}">Books</a></li>
+            {% if user.is_authenticated and user.is_superuser %}
+                <li><a href="{% url 'order:index' %}">Orders</a></li>
+                <li><a href="{% url 'author:index' %}">Authors</a></li>
+            {% endif %}
+            <li class="auth-link">
+                {% if user.is_authenticated %}
+                    <form action="{% url 'authentication:logout' %}" method="post" class="logout">
+                        {% csrf_token %}
+                        <button>Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'authentication:index' %}">Login</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+        <!-- Content will be here -->
+    {% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2025 Library Project</p>
+</footer>
+</body>
+</html>

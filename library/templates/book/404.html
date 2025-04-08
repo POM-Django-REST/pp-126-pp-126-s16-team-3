@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book is not found{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+    <img src="{% static 'img/404.jpg' %}" alt="Error 404 — Book with ID {{ book_id }} is not found">
+    <div class="back-button">
+        <a href="{% url 'book:index' %}">← Back to book list</a>
+    </div>
+{% endblock %}

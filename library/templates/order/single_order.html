@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/single_order.css' %}">
+    <div class="order-detail">
+        <h2>Order Detail</h2>
+        <div class="order-info">
+            <p><strong>ID:</strong> {{ order.id }}</p>
+            <p>
+                <strong>User:</strong>
+                {{ order.user.first_name }} {{ order.user.last_name }} ({{ order.user.email }})
+            </p>
+            <p><strong>Book:</strong> {{ order.book.name }}</p>
+            <p><strong>Created At:</strong> {{ order.created_at|date:"Y-m-d H:i" }}</p>
+            <p>
+                <strong>End At:</strong>
+                {% if order.end_at %}
+                    {{ order.end_at|date:"Y-m-d H:i" }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+            <p><strong>Planned End At:</strong> {{ order.plated_end_at|date:"Y-m-d H:i" }}</p>
+        </div>
+        <div class="order-utils">
+            <a href="{% url 'order:index' %}" class="back-button">Back to Orders</a>
+        </div>
+    </div>
+{% endblock %}
